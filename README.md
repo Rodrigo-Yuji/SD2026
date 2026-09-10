@@ -1,6 +1,6 @@
 # Sistema de Adoção de Animais com gRPC na Google Cloud
 
-Projeto acadêmico de Sistemas Distribuídos que demonstra a comunicação síncrona entre dois microsserviços independentes utilizando **gRPC** e **Protocol Buffers**, com execução em máquinas virtuais da **Google Cloud Platform**.
+Sistema distribuído de adoção de animais construído com **gRPC** e **Protocol Buffers**, sendo hospedado no **GPC**.
 
 ## 1. Objetivo
 
@@ -44,7 +44,7 @@ Responsável por:
 - enviar a requisição ao Microsserviço de Adoção;
 - apresentar a resposta ao usuário.
 
-O cliente não é considerado um terceiro microsserviço. O cliente é apenas o programa que inicia o fluxo da demonstração.
+**Microsserviço A (Cliente/Interface):** Responsável por coletar os dados, empacotar a mensagem via Protocol Buffers e disparar a requisição gRPC pela rede VPC até o servidor.
 
 ### 3.2 Microsserviço de Adoção
 
@@ -70,7 +70,7 @@ Responsável por:
 
 ## 4. Arquitetura implantada
 
-A implantação validada utiliza duas máquinas virtuais:
+O sistema distribui a carga em duas VMs, a **vm-adocao** (onde roda o Cliente) e a **vm-adotai** (onde rodam os serviços de backend).
 
 ```text
 VM vm-adocao
@@ -91,7 +91,7 @@ VM vm-adotai
     └── Servidor gRPC na porta 9090
 ```
 
-Os dois microsserviços são independentes no nível da aplicação, pois possuem processos, servidores, portas e responsabilidades diferentes. Os dois processos são hospedados na mesma VM servidora.
+A comunicação externa cruza a rede VPC do GCP na porta 9091. Internamente, o backend separa o serviço de Adoção e de Animais isolando portas (9090 e 9091).
 
 ## 5. Fluxo da comunicação
 
@@ -410,7 +410,7 @@ Animal não encontrado.
 
 Interrompa temporariamente o Microsserviço de Animais e envie uma nova solicitação. O Microsserviço de Adoção deve retornar uma falha de comunicação compreensível, sem permanecer bloqueado indefinidamente.
 
-## 18. Evidência validada
+## 18. Testes de Execução
 
 No teste realizado:
 
@@ -438,8 +438,6 @@ O teste comprova que:
 - o projeto não utiliza banco de dados;
 - não há interface gráfica;
 - a finalidade é demonstrar comunicação gRPC, e não implementar uma plataforma completa de adoção.
-
-Essas limitações não impedem o atendimento ao objetivo acadêmico do trabalho.
 
 ## 20. Demonstração recomendada
 
