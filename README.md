@@ -464,8 +464,6 @@ Não é necessário mostrar o código durante a apresentação.
 
 ## 22. Autores
 
-Adicione nesta seção os nomes dos integrantes do grupo.
-
 ```text
 Integrante 1: Stella Lopes Moreira
 Integrante 2: Rodrigo Yuji Okida Tamoto
